@@ -21,7 +21,7 @@ module.exports = {
       host: process.env.ALIYUN_KNOWN_HOSTS,
       ref: "origin/master",
       repo: process.env.GIT_REPO_URL,
-      path: "/var/www/wwwroot/cat-home-page",
+      path: "/www/wwwroot/cat-home-page",
       "post-deploy":
         "pnpm install && pnpm run build && pm2 startOrRestart ecosystem.config.js --env production",
     },

@@ -29,7 +29,7 @@ jobs:
 
       - name: Upload .env to server
         run: |
-          scp -o StrictHostKeyChecking=no .env root@${{ secrets.SSH_KNOWN_HOSTS }}:/var/www/wwwroot/cat-home-page/.env
+          scp -o StrictHostKeyChecking=no .env root@${{ secrets.SSH_KNOWN_HOSTS }}:/www/wwwroot/cat-home-page/.env
 
       # - name: Deploy with PM2
       #   run: pm2 deploy ecosystem.config.js production
