@@ -1,0 +1,35 @@
+name: Deploy to Aliyun ECS
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Install PM2
+        run: npm install -g pm2
+
+      - name: Generate .env file from secrets
+        run: |
+          echo "ALIYUN_KNOWN_HOSTS=${{ secrets.SSH_KNOWN_HOSTS }}" >> .env
+          echo "GIT_REPO_URL=${{ secrets.GIT_REPO_URL }}" >> .env
+
+      - name: Upload .env to server
+        run: |
+          scp -o StrictHostKeyChecking=no .env root@${{ secrets.SSH_KNOWN_HOSTS }}:/var/www/wwwroot/cat-home-page/.env
+
+      # - name: Deploy with PM2
+      #   run: pm2 deploy ecosystem.config.js production
