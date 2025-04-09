@@ -19,8 +19,8 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
 
-      - name: Install PM2
-        run: npm install -g pm2
+      - name: Install PM2 dotenv
+        run: npm install -g pm2 dotenv
 
       - name: Generate .env file from secrets
         run: |
