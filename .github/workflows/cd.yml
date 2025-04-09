@@ -20,7 +20,7 @@ jobs:
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
 
       - name: Install PM2 dotenv
-        run: npm install -g pm2 dotenv
+        run: npm install -g pm2 && npm install -g dotenv
 
       - name: Generate .env file from secrets
         run: |
